@@ -193,7 +193,46 @@ public class SighUp extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String formNo = first;
+        String name = textName.getText();
+        String fName = textFName.getText();
+        String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        String gender = null;
+        if(r1.isSelected()){
+            gender = "Male";
+        }
+        else if(r2.isSelected()){
+            gender = "Female";
+        }
+        String email = textEmail.getText();
+        String marital = null;
+        if(m1.isSelected()){
+            marital = "Married";
+        }
+        else if(m2.isSelected()){
+            marital = "Unmarried";
+        }
+        else if(m3.isSelected()){
+            marital = "Other";
+        }
+        String address = textAddress.getText();
+        String city = textCity.getText();
+        String pincode = textPinCode.getText();
+        String state = textState.getText();
 
+        try{
+            if(textName.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Fill all the fields!");
+            }else{
+                Con con1 = new Con();
+                String q = "Insert into signup values('"+formNo+"', '"+name+"', '"+fName+"', '"+dob+"', '"+gender+"', '"+email+"', '"+marital+"', '"+address+"', '"+city+"', '"+pincode+"', '"+state+"')";
+                con1.statement.executeUpdate(q);
+                new SignUp2();
+                setVisible(false);
+            }
+        }catch (Exception E){
+            E.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
